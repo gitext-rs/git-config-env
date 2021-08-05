@@ -9,3 +9,5 @@ keywords = ["git", "cli"]
 edition = "2018"
 
 [dependencies]
+nom = "6"
+itertools = "0.10"

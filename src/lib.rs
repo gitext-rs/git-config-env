@@ -1,7 +1,8 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+//! Parse git's env configuration
+
+mod env;
+mod param;
+
+pub use env::*;
+pub use param::*;
+pub mod quote;
