@@ -1,8 +1,11 @@
 [package]
 name = "git-config-env"
 version = "0.1.0"
+license = "MIT OR Apache-2.0"
+description = "Parse git's env configuration"
+repository = "https://github.com/crate-ci/git-config-env"
+categories = ["command-line-interface", "development-tools", "parsing"]
+keywords = ["git", "cli"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
