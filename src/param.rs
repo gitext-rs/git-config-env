@@ -5,6 +5,7 @@ use std::borrow::Cow;
 /// These are the `-c` parameters, passed from the `git` process to the subcommand.
 ///
 /// See [parse_parameter] for how to parse the `-c` parameter.
+#[derive(Clone, Default, Debug, PartialEq, Eq)]
 pub struct ConfigParameters {
     values: String,
 }
@@ -34,6 +35,7 @@ impl<'s> IntoIterator for &'s ConfigParameters {
 /// These are the `-c` parameters, passed from the `git` process to the subcommand.
 ///
 /// See [parse_parameter] for how to parse the `-c` parameter.
+#[derive(Clone, Default, Debug, PartialEq, Eq)]
 pub struct ConfigParametersIter<'s> {
     values: &'s str,
 }

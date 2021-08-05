@@ -9,6 +9,7 @@ use std::borrow::Cow;
 ///
 /// These environment variables should override values in configuration files, but should be
 /// overridden by any explicit options passed via `git -c`.
+#[derive(Copy, Clone, Default, Debug, PartialEq, Eq)]
 pub struct ConfigEnv<E: Env> {
     e: E,
 }
@@ -66,6 +67,7 @@ where
 }
 
 /// Iterate over user-defined configuration
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct ConfigEnvIter<'e, E: Env> {
     e: &'e E,
     max: usize,
