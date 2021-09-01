@@ -19,5 +19,5 @@ pre-release-replacements = [
 ]
 
 [dependencies]
-nom = "6"
+nom = "7"
 itertools = "0.10"
