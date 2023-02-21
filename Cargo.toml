@@ -26,5 +26,5 @@ pre-release-replacements = [
 ]
 
 [dependencies]
-nom = "7"
+winnow = "0.3.0"
 itertools = "0.10"

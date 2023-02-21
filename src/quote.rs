@@ -1,13 +1,13 @@
 use std::borrow::Cow;
 
 use itertools::Itertools;
-use nom::branch::*;
-use nom::bytes::complete::*;
-use nom::character::complete::*;
-use nom::combinator::*;
-use nom::multi::*;
-use nom::sequence::*;
-use nom::IResult;
+use winnow::branch::*;
+use winnow::bytes::complete::*;
+use winnow::character::complete::*;
+use winnow::combinator::*;
+use winnow::multi::*;
+use winnow::sequence::*;
+use winnow::IResult;
 
 pub fn sq_dequote_step(input: &str) -> IResult<&str, Cow<str>> {
     // See git's quote.c's `sq_dequote_step`
@@ -21,7 +21,7 @@ fn sq_dequote_escaped(input: &str) -> IResult<&str, Cow<str>> {
             sq_dequote_trail,
             many0(sq_dequote_trail),
         )),
-        |(start, trail, mut trails)| {
+        |(start, trail, mut trails): (_, _, Vec<_>)| {
             trails.insert(0, trail);
             trails.insert(0, [start, ""]);
             let value = trails.into_iter().flatten().join("");
