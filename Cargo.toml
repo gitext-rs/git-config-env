@@ -8,6 +8,7 @@ readme = "README.md"
 categories = ["command-line-interface", "development-tools", "parsing"]
 keywords = ["git", "cli"]
 edition = "2018"
+rust-version = "1.60.0"  # MSRV
 include = [
   "src/**/*",
   "Cargo.toml",
