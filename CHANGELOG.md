@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+## [0.1.3] - 2023-02-22
+
 ### Internal
 
 - Update dependencies
@@ -20,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add basic traits (e.g. `Debug`)
 
 <!-- next-url -->
-[Unreleased]: https://github.com/epage/git-stack/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/epage/git-stack/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/epage/git-stack/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/epage/git-stack/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/rust-cli/concolor/compare/a13c2f093b29f24de617a659d06a55633a5b65f0...v0.1.1
