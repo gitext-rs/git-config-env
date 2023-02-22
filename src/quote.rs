@@ -1,13 +1,11 @@
 use std::borrow::Cow;
 
 use itertools::Itertools;
-use nom::branch::*;
-use nom::bytes::complete::*;
-use nom::character::complete::*;
-use nom::combinator::*;
-use nom::multi::*;
-use nom::sequence::*;
-use nom::IResult;
+use winnow::branch::*;
+use winnow::bytes::*;
+use winnow::multi::*;
+use winnow::prelude::*;
+use winnow::sequence::*;
 
 pub fn sq_dequote_step(input: &str) -> IResult<&str, Cow<str>> {
     // See git's quote.c's `sq_dequote_step`
@@ -15,35 +13,36 @@ pub fn sq_dequote_step(input: &str) -> IResult<&str, Cow<str>> {
 }
 
 fn sq_dequote_escaped(input: &str) -> IResult<&str, Cow<str>> {
-    map(
-        tuple((
-            sq_dequote_section,
-            sq_dequote_trail,
-            many0(sq_dequote_trail),
-        )),
-        |(start, trail, mut trails)| {
+    (
+        sq_dequote_section,
+        sq_dequote_trail,
+        many0(sq_dequote_trail),
+    )
+        .map(|(start, trail, mut trails): (_, _, Vec<_>)| {
             trails.insert(0, trail);
             trails.insert(0, [start, ""]);
             let value = trails.into_iter().flatten().join("");
             Cow::Owned(value)
-        },
-    )(input)
+        })
+        .parse_next(input)
 }
 
 fn sq_dequote_no_escaped(input: &str) -> IResult<&str, Cow<str>> {
-    map(sq_dequote_section, Cow::Borrowed)(input)
+    sq_dequote_section.map(Cow::Borrowed).parse_next(input)
 }
 
 fn sq_dequote_section(input: &str) -> IResult<&str, &str> {
-    terminated(preceded(char('\''), take_while(|c| c != '\'')), char('\''))(input)
+    terminated(preceded('\'', take_while0(|c| c != '\'')), '\'')(input)
 }
 
 fn sq_dequote_trail(input: &str) -> IResult<&str, [&str; 2]> {
-    map(pair(escaped, sq_dequote_section), |(e, s)| [e, s])(input)
+    (escaped, sq_dequote_section)
+        .map(|(e, s)| [e, s])
+        .parse_next(input)
 }
 
 fn escaped(input: &str) -> IResult<&str, &str> {
-    preceded(char('\\'), alt((tag("'"), tag("!"))))(input)
+    preceded('\\', one_of("'!").recognize())(input)
 }
 
 #[cfg(test)]
