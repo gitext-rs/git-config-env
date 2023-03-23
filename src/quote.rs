@@ -9,7 +9,7 @@ use winnow::sequence::*;
 
 pub fn sq_dequote_step(input: &str) -> IResult<&str, Cow<str>> {
     // See git's quote.c's `sq_dequote_step`
-    alt((sq_dequote_escaped, sq_dequote_no_escaped))(input)
+    alt((sq_dequote_escaped, sq_dequote_no_escaped)).parse_next(input)
 }
 
 fn sq_dequote_escaped(input: &str) -> IResult<&str, Cow<str>> {
@@ -32,7 +32,7 @@ fn sq_dequote_no_escaped(input: &str) -> IResult<&str, Cow<str>> {
 }
 
 fn sq_dequote_section(input: &str) -> IResult<&str, &str> {
-    terminated(preceded('\'', take_while0(|c| c != '\'')), '\'')(input)
+    terminated(preceded('\'', take_while0(|c| c != '\'')), '\'').parse_next(input)
 }
 
 fn sq_dequote_trail(input: &str) -> IResult<&str, [&str; 2]> {
@@ -42,7 +42,7 @@ fn sq_dequote_trail(input: &str) -> IResult<&str, [&str; 2]> {
 }
 
 fn escaped(input: &str) -> IResult<&str, &str> {
-    preceded('\\', one_of("'!").recognize())(input)
+    preceded('\\', one_of("'!").recognize()).parse_next(input)
 }
 
 #[cfg(test)]
