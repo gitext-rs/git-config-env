@@ -1,11 +1,9 @@
 use std::borrow::Cow;
 
 use itertools::Itertools;
-use winnow::branch::*;
-use winnow::bytes::*;
-use winnow::multi::*;
+use winnow::combinator::*;
 use winnow::prelude::*;
-use winnow::sequence::*;
+use winnow::token::*;
 
 pub fn sq_dequote_step(input: &str) -> IResult<&str, Cow<str>> {
     // See git's quote.c's `sq_dequote_step`
@@ -16,7 +14,7 @@ fn sq_dequote_escaped(input: &str) -> IResult<&str, Cow<str>> {
     (
         sq_dequote_section,
         sq_dequote_trail,
-        many0(sq_dequote_trail),
+        repeat(0.., sq_dequote_trail),
     )
         .map(|(start, trail, mut trails): (_, _, Vec<_>)| {
             trails.insert(0, trail);
@@ -32,7 +30,7 @@ fn sq_dequote_no_escaped(input: &str) -> IResult<&str, Cow<str>> {
 }
 
 fn sq_dequote_section(input: &str) -> IResult<&str, &str> {
-    terminated(preceded('\'', take_while0(|c| c != '\'')), '\'').parse_next(input)
+    terminated(preceded('\'', take_while(0.., |c| c != '\'')), '\'').parse_next(input)
 }
 
 fn sq_dequote_trail(input: &str) -> IResult<&str, [&str; 2]> {
@@ -42,7 +40,7 @@ fn sq_dequote_trail(input: &str) -> IResult<&str, [&str; 2]> {
 }
 
 fn escaped(input: &str) -> IResult<&str, &str> {
-    preceded('\\', one_of("'!").recognize()).parse_next(input)
+    preceded('\\', one_of(['\'', '!']).recognize()).parse_next(input)
 }
 
 #[cfg(test)]
