@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+### Breaking Changes
+
+- Update `sq_dequote_step` to be independent of `winnow`
+
 ## [0.1.5] - 2023-03-18
 
 ### Internal
