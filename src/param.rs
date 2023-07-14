@@ -56,7 +56,7 @@ impl<'s> Iterator for ConfigParametersIter<'s> {
     fn next(&mut self) -> Option<Self::Item> {
         // See git's config.c's `parse_config_env_list`
         self.values = self.values.trim_start();
-        let key = crate::quote::sq_dequote_step(&mut self.values).ok()?;
+        let key = crate::quote::sq_dequote(&mut self.values).ok()?;
 
         if let Some(values) = self.values.strip_prefix('=') {
             // new-style 'key'='value'
@@ -68,7 +68,7 @@ impl<'s> Iterator for ConfigParametersIter<'s> {
                 self.values = values;
                 Some((key, None))
             } else {
-                let value = crate::quote::sq_dequote_step(&mut self.values).ok()?;
+                let value = crate::quote::sq_dequote(&mut self.values).ok()?;
                 Some((key, Some(value)))
             }
         } else {

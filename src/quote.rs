@@ -5,7 +5,22 @@ use winnow::combinator::*;
 use winnow::prelude::*;
 use winnow::token::*;
 
-pub fn sq_dequote_step<'i>(input: &mut &'i str) -> PResult<Cow<'i, str>, ()> {
+#[derive(Debug)]
+pub struct QuoteError;
+
+impl std::fmt::Display for QuoteError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "invalid quoting")
+    }
+}
+
+impl std::error::Error for QuoteError {}
+
+pub fn sq_dequote_step<'i>(input: &mut &'i str) -> Result<Cow<'i, str>, QuoteError> {
+    sq_dequote.parse_next(input).map_err(|_e| QuoteError)
+}
+
+pub fn sq_dequote<'i>(input: &mut &'i str) -> PResult<Cow<'i, str>, ()> {
     // See git's quote.c's `sq_dequote_step`
     alt((sq_dequote_escaped, sq_dequote_no_escaped)).parse_next(input)
 }
@@ -51,7 +66,7 @@ mod test_sq_dequote_step {
     fn word() {
         let fixture = "'name'";
         let expected = Cow::Borrowed("name");
-        let (_, actual) = sq_dequote_step.parse_peek(fixture).unwrap();
+        let (_, actual) = sq_dequote.parse_peek(fixture).unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -59,7 +74,7 @@ mod test_sq_dequote_step {
     fn space() {
         let fixture = "'a b'";
         let expected = Cow::Borrowed("a b");
-        let (_, actual) = sq_dequote_step.parse_peek(fixture).unwrap();
+        let (_, actual) = sq_dequote.parse_peek(fixture).unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -67,7 +82,7 @@ mod test_sq_dequote_step {
     fn sq_escaped() {
         let fixture = "'a'\\''b'";
         let expected: Cow<str> = Cow::Owned("a'b".into());
-        let (_, actual) = sq_dequote_step.parse_peek(fixture).unwrap();
+        let (_, actual) = sq_dequote.parse_peek(fixture).unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -75,7 +90,7 @@ mod test_sq_dequote_step {
     fn exclamation_escaped() {
         let fixture = "'a'\\!'b'";
         let expected: Cow<str> = Cow::Owned("a!b".into());
-        let (_, actual) = sq_dequote_step.parse_peek(fixture).unwrap();
+        let (_, actual) = sq_dequote.parse_peek(fixture).unwrap();
         assert_eq!(actual, expected);
     }
 }
