@@ -18,7 +18,7 @@ include = [
 
 [package]
 name = "git-config-env"
-version = "0.1.5"
+version = "0.2.0"
 description = "Parse git's env configuration"
 repository = "https://github.com/crate-ci/git-config-env"
 readme = "README.md"

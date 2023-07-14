@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+## [0.2.0] - 2023-07-14
+
 ### Breaking Changes
 
 - Update `sq_dequote_step` to be independent of `winnow`
@@ -34,7 +36,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add basic traits (e.g. `Debug`)
 
 <!-- next-url -->
-[Unreleased]: https://github.com/epage/git-stack/compare/v0.1.5...HEAD
+[Unreleased]: https://github.com/epage/git-stack/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/epage/git-stack/compare/v0.1.5...v0.2.0
 [0.1.5]: https://github.com/epage/git-stack/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/epage/git-stack/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/epage/git-stack/compare/v0.1.2...v0.1.3
