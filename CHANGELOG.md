@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+### Internal
+
+- Update `winnow`
+
 ## [0.2.0] - 2023-07-14
 
 ### Breaking Changes
