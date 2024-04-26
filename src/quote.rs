@@ -2,7 +2,7 @@ use std::borrow::Cow;
 
 use itertools::Itertools;
 use winnow::combinator::{alt, preceded, repeat, terminated};
-use winnow::prelude::{PResult, Parser};
+use winnow::prelude::*;
 use winnow::token::{one_of, take_while};
 
 #[derive(Debug)]
