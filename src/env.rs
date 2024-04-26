@@ -52,7 +52,7 @@ impl<'e, E: Env> IntoIterator for &'e ConfigEnv<E> {
     }
 }
 
-impl<K, V> std::iter::FromIterator<(K, V)> for ConfigEnv<std::collections::HashMap<String, String>>
+impl<K, V> FromIterator<(K, V)> for ConfigEnv<std::collections::HashMap<String, String>>
 where
     K: Into<String>,
     V: Into<String>,
@@ -91,12 +91,12 @@ impl<'e, E: Env> Iterator for ConfigEnvIter<'e, E> {
     }
 }
 
-/// Abstract over `std::env` for [ConfigEnv]
+/// Abstract over `std::env` for [`ConfigEnv`]
 pub trait Env {
     fn var(&self, key: &str) -> Result<Cow<'_, str>, std::env::VarError>;
 }
 
-/// Use `std::env::var` for [ConfigEnv]
+/// Use `std::env::var` for [`ConfigEnv`]
 #[derive(Copy, Clone, Default, Debug, PartialEq, Eq)]
 pub struct StdEnv;
 
@@ -106,7 +106,7 @@ impl Env for StdEnv {
     }
 }
 
-/// No-op env for [ConfigEnv]
+/// No-op env for [`ConfigEnv`]
 #[derive(Copy, Clone, Default, Debug, PartialEq, Eq)]
 pub struct NoEnv;
 

@@ -1,9 +1,9 @@
 use std::borrow::Cow;
 
 use itertools::Itertools;
-use winnow::combinator::*;
-use winnow::prelude::*;
-use winnow::token::*;
+use winnow::combinator::{alt, preceded, repeat, terminated};
+use winnow::prelude::{PResult, Parser};
+use winnow::token::{one_of, take_while};
 
 #[derive(Debug)]
 pub struct QuoteError;
@@ -81,7 +81,7 @@ mod test_sq_dequote_step {
     #[test]
     fn sq_escaped() {
         let fixture = "'a'\\''b'";
-        let expected: Cow<str> = Cow::Owned("a'b".into());
+        let expected: Cow<'_, str> = Cow::Owned("a'b".into());
         let (_, actual) = sq_dequote.parse_peek(fixture).unwrap();
         assert_eq!(actual, expected);
     }
@@ -89,7 +89,7 @@ mod test_sq_dequote_step {
     #[test]
     fn exclamation_escaped() {
         let fixture = "'a'\\!'b'";
-        let expected: Cow<str> = Cow::Owned("a!b".into());
+        let expected: Cow<'_, str> = Cow::Owned("a!b".into());
         let (_, actual) = sq_dequote.parse_peek(fixture).unwrap();
         assert_eq!(actual, expected);
     }
