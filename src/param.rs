@@ -4,7 +4,7 @@ use std::borrow::Cow;
 ///
 /// These are the `-c` parameters, passed from the `git` process to the subcommand.
 ///
-/// See [parse_parameter] for how to parse the `-c` parameter.
+/// See [`parse_parameter`] for how to parse the `-c` parameter.
 #[derive(Clone, Default, Debug, PartialEq, Eq)]
 pub struct ConfigParameters {
     values: String,
@@ -34,7 +34,7 @@ impl<'s> IntoIterator for &'s ConfigParameters {
 ///
 /// These are the `-c` parameters, passed from the `git` process to the subcommand.
 ///
-/// See [parse_parameter] for how to parse the `-c` parameter.
+/// See [`parse_parameter`] for how to parse the `-c` parameter.
 #[derive(Clone, Default, Debug, PartialEq, Eq)]
 pub struct ConfigParametersIter<'s> {
     values: &'s str,
@@ -45,7 +45,7 @@ impl<'s> ConfigParametersIter<'s> {
         Self { values }
     }
 
-    pub fn iter(&self) -> impl Iterator<Item = (Cow<str>, Cow<str>)> + '_ {
+    pub fn iter(&self) -> impl Iterator<Item = (Cow<'_, str>, Cow<'_, str>)> + '_ {
         None.into_iter()
     }
 }
@@ -216,7 +216,7 @@ pub fn parse_parameter(arg: &str) -> (&str, Option<&str>) {
         .unwrap_or((arg, None))
 }
 
-fn parse_parameter_cow(arg: Cow<str>) -> (Cow<str>, Option<Cow<str>>) {
+fn parse_parameter_cow(arg: Cow<'_, str>) -> (Cow<'_, str>, Option<Cow<'_, str>>) {
     match arg {
         Cow::Borrowed(arg) => {
             let (key, value) = parse_parameter(arg);
