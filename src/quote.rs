@@ -4,6 +4,7 @@ use itertools::Itertools;
 use winnow::combinator::{alt, preceded, repeat, terminated};
 use winnow::prelude::*;
 use winnow::token::{one_of, take_while};
+use winnow::Result;
 
 #[derive(Debug)]
 pub struct QuoteError;
@@ -20,12 +21,13 @@ pub fn sq_dequote_step<'i>(input: &mut &'i str) -> Result<Cow<'i, str>, QuoteErr
     sq_dequote.parse_next(input).map_err(|_e| QuoteError)
 }
 
-pub fn sq_dequote<'i>(input: &mut &'i str) -> PResult<Cow<'i, str>, ()> {
+#[allow(clippy::result_unit_err)]
+pub fn sq_dequote<'i>(input: &mut &'i str) -> Result<Cow<'i, str>, ()> {
     // See git's quote.c's `sq_dequote_step`
     alt((sq_dequote_escaped, sq_dequote_no_escaped)).parse_next(input)
 }
 
-fn sq_dequote_escaped<'i>(input: &mut &'i str) -> PResult<Cow<'i, str>, ()> {
+fn sq_dequote_escaped<'i>(input: &mut &'i str) -> Result<Cow<'i, str>, ()> {
     (
         sq_dequote_section,
         sq_dequote_trail,
@@ -40,22 +42,22 @@ fn sq_dequote_escaped<'i>(input: &mut &'i str) -> PResult<Cow<'i, str>, ()> {
         .parse_next(input)
 }
 
-fn sq_dequote_no_escaped<'i>(input: &mut &'i str) -> PResult<Cow<'i, str>, ()> {
+fn sq_dequote_no_escaped<'i>(input: &mut &'i str) -> Result<Cow<'i, str>, ()> {
     sq_dequote_section.map(Cow::Borrowed).parse_next(input)
 }
 
-fn sq_dequote_section<'i>(input: &mut &'i str) -> PResult<&'i str, ()> {
+fn sq_dequote_section<'i>(input: &mut &'i str) -> Result<&'i str, ()> {
     terminated(preceded('\'', take_while(0.., |c| c != '\'')), '\'').parse_next(input)
 }
 
-fn sq_dequote_trail<'i>(input: &mut &'i str) -> PResult<[&'i str; 2], ()> {
+fn sq_dequote_trail<'i>(input: &mut &'i str) -> Result<[&'i str; 2], ()> {
     (escaped, sq_dequote_section)
         .map(|(e, s)| [e, s])
         .parse_next(input)
 }
 
-fn escaped<'i>(input: &mut &'i str) -> PResult<&'i str, ()> {
-    preceded('\\', one_of(['\'', '!']).recognize()).parse_next(input)
+fn escaped<'i>(input: &mut &'i str) -> Result<&'i str, ()> {
+    preceded('\\', one_of(['\'', '!']).take()).parse_next(input)
 }
 
 #[cfg(test)]
