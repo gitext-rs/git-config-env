@@ -112,7 +112,7 @@ pre-release-replacements = [
 ]
 
 [dependencies]
-winnow = "0.6.26"
+winnow = "0.7.0"
 itertools = "0.14"
 
 [dev-dependencies]
