@@ -87,7 +87,7 @@ zero_sized_map_values = "warn"
 
 [package]
 name = "git-config-env"
-version = "0.2.2"
+version = "0.2.3"
 description = "Parse git's env configuration"
 readme = "README.md"
 categories = ["command-line-interface", "development-tools", "parsing"]
