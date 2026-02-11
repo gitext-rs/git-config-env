@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+## [1.0.0] - 2026-02-11
+
 ## [0.2.3] - 2025-01-30
 
 ### Internal
@@ -54,7 +56,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Add basic traits (e.g. `Debug`)
 
 <!-- next-url -->
-[Unreleased]: https://github.com/epage/git-stack/compare/v0.2.3...HEAD
+[Unreleased]: https://github.com/epage/git-stack/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/epage/git-stack/compare/v0.2.3...v1.0.0
 [0.2.3]: https://github.com/epage/git-stack/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/epage/git-stack/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/epage/git-stack/compare/v0.2.0...v0.2.1
