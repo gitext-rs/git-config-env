@@ -1,10 +1,10 @@
 use std::borrow::Cow;
 
 use itertools::Itertools;
+use winnow::Result;
 use winnow::combinator::{alt, preceded, repeat, terminated};
 use winnow::prelude::*;
 use winnow::token::{one_of, take_while};
-use winnow::Result;
 
 #[derive(Debug)]
 pub struct QuoteError;
