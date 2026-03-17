@@ -96,7 +96,7 @@ lto = true
 
 [package]
 name = "git-config-env"
-version = "1.0.0"
+version = "1.1.0"
 description = "Parse git's env configuration"
 readme = "README.md"
 categories = ["command-line-interface", "development-tools", "parsing"]

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+## [1.1.0] - 2026-03-17
+
 ### Compatibility
 
 - Update MSRV to 1.85
@@ -64,7 +66,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Add basic traits (e.g. `Debug`)
 
 <!-- next-url -->
-[Unreleased]: https://github.com/epage/git-stack/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/epage/git-stack/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/epage/git-stack/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/epage/git-stack/compare/v0.2.3...v1.0.0
 [0.2.3]: https://github.com/epage/git-stack/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/epage/git-stack/compare/v0.2.1...v0.2.2
