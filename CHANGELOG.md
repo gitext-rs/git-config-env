@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+### Compatibility
+
+- Update MSRV to 1.85
+
+### Internal
+
+- Update `winnow`
+
 ## [1.0.0] - 2026-02-11
 
 ## [0.2.3] - 2025-01-30
