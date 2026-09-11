@@ -21,7 +21,7 @@ pub fn sq_dequote_step<'i>(input: &mut &'i str) -> Result<Cow<'i, str>, QuoteErr
     sq_dequote.parse_next(input).map_err(|_e| QuoteError)
 }
 
-#[allow(clippy::result_unit_err)]
+#[expect(clippy::result_unit_err, reason = "intentional")]
 pub fn sq_dequote<'i>(input: &mut &'i str) -> Result<Cow<'i, str>, ()> {
     // See git's quote.c's `sq_dequote_step`
     alt((sq_dequote_escaped, sq_dequote_no_escaped)).parse_next(input)
