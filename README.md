@@ -7,8 +7,6 @@
 ![License](https://img.shields.io/crates/l/git-config-env.svg)
 [![Crates Status](https://img.shields.io/crates/v/git-config-env.svg)](https://crates.io/crates/git-config-env)
 
-Dual-licensed under [MIT](LICENSE-MIT) or [Apache 2.0](LICENSE-APACHE)
-
 ## License
 
 Licensed under either of
